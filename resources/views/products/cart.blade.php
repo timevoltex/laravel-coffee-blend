@@ -3,7 +3,7 @@
 @section('content')
     <section class="home-slider owl-carousel">
 
-        <div class="slider-item" style="background-image: url({{asset('assets/images/bg_3.jpg')}});" >
+        <div class="slider-item" style="background-image: url({{asset('assets/images/bg_3.jpg')}});">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text justify-content-center align-items-center">
@@ -18,14 +18,21 @@
             </div>
         </div>
     </section>
+    <div class="container">
+        @if(Session::has('delete'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('delete')}}</p>
+        @elseif(Session::has('error'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('error')}}</p>
+        @endif
+    </div>
 
     <section class="ftco-section ftco-cart">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ftco-animate">
-                    < class="cart-list">
-                        <table class="table-dark">
-                            <thead class="thead-primary">
+                    <div class="cart-list">
+                        <table class="table-dark border-spacing-6" style="width: 100%">
+                            <thead style="background-color:#c49b63; height:60px">
                             <tr class="text-center">
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
@@ -36,36 +43,40 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($cartProducts as $cartProduct)
-                                <tr class="text-center">
-                                    <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
+                            @if($cartProducts->count() > 0)
+                                @foreach($cartProducts as $cartProduct)
+                                    <tr class="text-center gap-0.5" style="height:140px">
+                                        <td class="product-remove"><a
+                                                href="{{route('cart.product.delete', $cartProduct->pro_id)}}"><span
+                                                    class="icon-close"></span></a></td>
 
-                                    <td class="image-prod">
-                                        <img class="img" alt="thumbnail" width="60" height="60"
-                                             src="{{asset('assets/images/'.$cartProduct->image."")}}"/>
-                                    </td>
+                                        <td class="image-prod">
+                                            <img class="img" alt="thumbnail" width="100" height="100"
+                                                 src="{{asset('assets/images/'.$cartProduct->image."")}}"/>
+                                        </td>
 
-                                    <td class="product-name">
-                                        <h3>{{$cartProduct->name}}</h3>
-                                        <p>{{$cartProduct->description}}</p>
-                                    </td>
+                                        <td class="product-name">
+                                            <h3>{{$cartProduct->name}}</h3>
+                                        </td>
 
-                                    <td class="price">${{$cartProduct->price}}</td>
+                                        <td class="price">${{$cartProduct->price}}</td>
 
-                                    <td>
-                                        <div class="input-group mb-3">
-                                            <input disabled type="text" name="quantity"
-                                                   class="quantity form-control input-number" value="1" min="1"
-                                                   max="100">
-                                        </div>
-                                    </td>
+                                        <td>
+                                            <div class="input-group mb-3">
+                                                <input disabled type="text" name="quantity"
+                                                       class="quantity form-control input-number" value="1" min="1"
+                                                       max="100">
+                                            </div>
+                                        </td>
 
-                                    <td class="total">$4.90</td>
-                                </tr><!-- END TR-->
-                            @endforeach
-
-
-
+                                        <td class="total">${{$cartProduct->price}}</td>
+                                    </tr><!-- END TR-->
+                                @endforeach
+                            @else
+                                <p class="alert alert-success">
+                                    you have no products in cart just yet
+                                </p>
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -77,85 +88,29 @@
                         <h3>Cart Totals</h3>
                         <p class="d-flex">
                             <span>Subtotal</span>
-                            <span>$20.60</span>
+                            <span>${{$totalPrice}}</span>
                         </p>
                         <p class="d-flex">
                             <span>Delivery</span>
                             <span>$0.00</span>
                         </p>
-                        <p class="d-flex">
-                            <span>Discount</span>
-                            <span>$3.00</span>
-                        </p>
-                        <hr>
+                        <hr/>
                         <p class="d-flex total-price">
                             <span>Total</span>
-                            <span>$17.60</span>
+                            <span>${{$totalPrice}}</span>
                         </p>
                     </div>
-                    <p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to
-                            Checkout</a></p>
+                    @if($cartProducts->count() > 0)
+                        <p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to
+                                Checkout</a></p>
+                    @else
+                        <p class="text-center alert alert-success">
+                            you cannot checkout because you have no products in cart
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section ftco-animate text-center">
-                    <span class="subheading">Discover</span>
-                    <h2 class="mb-4">Related products</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-1.jpg')}});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="#">Coffee Capuccino</a></h3>
-                            <p>A small river named Duden flows by their place and supplies</p>
-                            <p class="price"><span>$5.90</span></p>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-2.jpg')}});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="#">Coffee Capuccino</a></h3>
-                            <p>A small river named Duden flows by their place and supplies</p>
-                            <p class="price"><span>$5.90</span></p>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-3.jpg')}});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="#">Coffee Capuccino</a></h3>
-                            <p>A small river named Duden flows by their place and supplies</p>
-                            <p class="price"><span>$5.90</span></p>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="menu-entry">
-                        <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-4.jpg')}});"></a>
-                        <div class="text text-center pt-4">
-                            <h3><a href="#">Coffee Capuccino</a></h3>
-                            <p>A small river named Duden flows by their place and supplies</p>
-                            <p class="price"><span>$5.90</span></p>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection
