@@ -288,10 +288,10 @@
                             <a href="#" class="img"
                                style="background-image: url({{asset('assets/images/'.$product->image)}});"></a>
                             <div class="text text-center pt-4">
-                                <h3><a href="#">{{$product->name}}</a></h3>
+                                <h3><a href="{{route('product.single', $product->id)}}">{{$product->name}}</a></h3>
                                 <p>{{$product->description}}</p>
                                 <p class="price"><span>${{$product->price}}</span></p>
-                                <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+                                <p><a href="{{route('product.single', $product->id)}}" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
                             </div>
                         </div>
                     </div>
