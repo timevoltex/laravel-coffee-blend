@@ -110,10 +110,10 @@
                                 <p>{{$relatedProduct->description}}</p>
                                 <p class="price"><span>${{$relatedProduct->price}}</span></p>
                                 <p>
-                                    <button type="submit" name="submit"
+                                    <a
                                             href="{{route('product.single', $relatedProduct->id)}}"
                                             class="btn btn-primary btn-outline-primary">Add to Cart
-                                    </button>
+                                    </a>
                                 </p>
                             </div>
                         </div>
