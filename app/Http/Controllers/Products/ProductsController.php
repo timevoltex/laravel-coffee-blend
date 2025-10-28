@@ -35,11 +35,17 @@ class ProductsController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'image' => $request->image,
+            'description' => $request->description,
             "user_id" => Auth::user()->id,
         ]);
 
         return Redirect::route('product.single', $id)->with(['success' => "product added to cart successfully"]);
+    }
 
+    public function cart()
+    {
+        $cartProducts = Cart::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
 
+        return view('products.cart', compact('cartProducts'));
     }
 }
