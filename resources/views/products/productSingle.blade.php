@@ -19,6 +19,11 @@
             </div>
         </div>
     </section>
+    <div class="container">
+        @if(Session::has('success'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('success')}}</p>
+        @endif
+    </div>
 
     <section class="ftco-section">
         <div class="container">
@@ -64,22 +69,22 @@
                     </div>
                     <form method="POST" action="{{route('add.cart', $product->id)}}">
                         @csrf
-                        <input type="text" name="pro_id" value="{{$product->id}}"/>
-                        <input type="text" name="name" value="{{$product->name}}"/>
-                        <input type="text" name="price" value="{{$product->price}}"/>
-                        <input type="text" name="image" value="{{$product->image}}"/>
-                        <p>
+                        <input type="hidden" name="pro_id" value="{{$product->id}}"/>
+                        <input type="hidden" name="name" value="{{$product->name}}"/>
+                        <input type="hidden" name="price" value="{{$product->price}}"/>
+                        <input type="hidden" name="image" value="{{$product->image}}"/>
+                        @if($checkingInCart == 0)
                             <button name="submit" type="submit" class="btn btn-primary py-3 px-5">Add to Cart</button>
-                        </p>
+                        @else
+                            <button style="background-color:black" disabled class="text-white btn btn-warning py-3 px-5">Added to Cart</button>
+                        @endif
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    @if(Session::has('success'))
-        {{Session::get('success')}}
-    @endif
+
 
     <section class="ftco-section">
         <div class="container">
