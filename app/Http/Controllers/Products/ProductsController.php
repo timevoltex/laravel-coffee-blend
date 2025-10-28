@@ -8,6 +8,7 @@ use App\Models\Product\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class ProductsController extends Controller
 {
@@ -58,13 +59,27 @@ class ProductsController extends Controller
 
         $deleteProductCart = Cart::where('pro_id', $id)->where('user_id', Auth::user()->id);
 
-
         if ($deleteProductCart) {
             $deleteProductCart->delete();
             return Redirect::route('cart')->with(['delete' => "product deleted from cart successfully"]);
         } else {
             return Redirect::route('cart')->with(['error' => "product not deleted from cart successfully"]);
         }
+    }
 
+    public function prepareCheckout(Request $request) {
+        $value = $request->price;
+
+        $price = Session::put('price', $value);
+
+        $newPrice = Session::get($price);
+
+        if($newPrice > 0){
+            return Redirect::route('checkout');
+        }
+    }
+
+    public function checkout() {
+        echo 'welcome checkout';
     }
 }
