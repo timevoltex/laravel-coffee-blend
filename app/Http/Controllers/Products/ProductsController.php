@@ -67,19 +67,31 @@ class ProductsController extends Controller
         }
     }
 
-    public function prepareCheckout(Request $request) {
+    public function prepareCheckout(Request $request)
+    {
         $value = $request->price;
 
         $price = Session::put('price', $value);
 
         $newPrice = Session::get($price);
 
-        if($newPrice > 0){
+        if ($newPrice > 0) {
             return Redirect::route('checkout');
         }
     }
 
-    public function checkout() {
-        echo 'welcome checkout';
+    public function checkout()
+    {
+        return view('products.checkout');
+    }
+
+    public function storeCheckout(Request $request, $id)
+    {
+        $checkout = Order::create($request->all());
+
+        echo "welcome to paypal checkout";
+//        return Redirect::route('product.single', $id)->with(['success' => "product added to cart successfully"]);
+
+
     }
 }
