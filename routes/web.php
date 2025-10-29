@@ -22,7 +22,7 @@ Route::get('products/cart-delete/{id}', [App\Http\Controllers\Products\ProductsC
 //checkout
 Route::post('products/prepare-checkout', [App\Http\Controllers\Products\ProductsController::class, 'prepareCheckout'])->name('prepare.checkout');
 Route::get('products/checkout', [App\Http\Controllers\Products\ProductsController::class, 'checkout'])->name('checkout')->middleware('check.for.price');
-Route::post('products/checkout', [App\Http\Controllers\Products\ProductsController::class, 'storeCheckout'])->name('proccess.checkout')->middleware('check.for.price');
+Route::post('products/checkout', [App\Http\Controllers\Products\ProductsController::class, 'storeCheckout'])->name('process.checkout')->middleware('check.for.price');
 
 //pay and success page
 Route::get('products/pay', [App\Http\Controllers\Products\ProductsController::class, 'payWithPaypal'])->name('products.pay')->middleware('check.for.price');
@@ -34,7 +34,13 @@ Route::post('products/booking', [App\Http\Controllers\Products\ProductsControlle
 //menu
 Route::get('products/menu', [App\Http\Controllers\Products\ProductsController::class, 'menu'])->name('products.menu');
 
+
+
 //users pages
 Route::get('users/orders', [App\Http\Controllers\Users\UserController::class, 'displayOrders'])->name('users.orders');
 Route::get('users/bookings', [App\Http\Controllers\Users\UserController::class, 'displayBookings'])->name('users.bookings');
+
+//write reivews
+Route::get('users/write-review', [App\Http\Controllers\Users\UserController::class, 'writeReview'])->name('users.write_review');
+Route::post('users/write-review', [App\Http\Controllers\Users\UserController::class, 'processWriteReview'])->name('process.write.review');
 

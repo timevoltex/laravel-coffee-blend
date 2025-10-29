@@ -66,6 +66,8 @@
             <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('date')}}</p>
         @elseif(Session::has('booking'))
             <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('booking')}}</p>
+        @elseif(Session::has('reviews'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('reviews')}}</p>
         @endif
     </div>
     <section class="ftco-intro">

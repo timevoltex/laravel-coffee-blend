@@ -25,13 +25,14 @@
                         <table class="table-dark " style="width:1100px">
                             <thead style="background-color:#c49b63; height:60px">
                             <tr class="text-center">
-                                <th>First name</th>
-                                <th>Last name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Phone</th>
                                 <th>Message</th>
                                 <th>Status</th>
+                                <th>Write Review</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -49,7 +50,18 @@
                                         <td class="total">{{$booking->phone}}</td>
 
                                         <td class="total">{{substr( $booking->message, 0, 40)}}</td>
-                                        <td class="total">{{$booking->status}}</td>
+                                        <td class="total">
+                                            {{$booking->status}}
+                                        </td>
+                                        <td>
+                                            @if($booking->status == "Booked")
+                                                <a class="btn btn-primary" href="#">
+                                                    Write review
+                                                </a>
+                                            @else
+                                                <p>not available just yet</p>
+                                            @endif
+                                        </td>
                                     </tr><!-- END TR-->
                                 @endforeach
                             @else

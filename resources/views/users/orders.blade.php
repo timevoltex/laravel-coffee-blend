@@ -25,13 +25,13 @@
                         <table class="table-dark " style="width:1100px">
                             <thead style="background-color:#c49b63; height:60px">
                             <tr class="text-center">
-                                <th>First name</th>
-                                <th>Last name</th>
-                                {{--                                <th>Address</th>--}}
+                                <th>First Name</th>
+                                <th>Last Name</th>
                                 <th>City</th>
                                 <th>Email</th>
                                 <th>Price</th>
                                 <th>Status</th>
+                                <th>Write Review</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -47,7 +47,16 @@
 
                                         <td class="total">${{$order->price}}</td>
 
-                                        <td class="total">${{$order->status}}</td>
+                                        <td class="total">{{$order->status}}</td>
+                                        <td>
+                                            @if($order->status == "Delivered")
+                                                <a class="btn btn-primary" href="{{route('users.write_review')}}">
+                                                    Write review
+                                                </a>
+                                            @else
+                                                <p>not available just yet</p>
+                                            @endif
+                                        </td>
                                     </tr><!-- END TR-->
                                 @endforeach
                             @else

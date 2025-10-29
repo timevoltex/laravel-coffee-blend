@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 ftco-animate">
-                    <form method="post" action="{{route('proccess.checkout')}}"
+                    <form method="post" action="{{route('process.checkout')}}"
                           class="billing-form ftco-bg-dark p-3 p-md-5">
                         @csrf
                         <h3 class="mb-4 billing-heading">Billing Details</h3>
