@@ -9,7 +9,7 @@
 
                     <div class="col-md-7 col-sm-12 text-center ftco-animate">
                         <h1 class="mb-3 mt-5 bread">Pay with Paypal</h1>
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="{{route('home')}}">Home</a></span>
                             <span>Pay with Paypal</span></p>
                     </div>
 
@@ -17,11 +17,10 @@
             </div>
         </div>
     </section>
-
-
     <div class="container">
         <!-- Replace "test" with your own sandbox Business account app client ID -->
-        <script src="https://www.paypal.com/sdk/js?client-id=ATLGWAOrZSvQ103eKIylfxfALipYGBTuPVsuzafbKTikCcFveVKoBEHa-zgAbMWL1u2LbFIeaSsIIkju&buyer-country=US&currency=USD"></script>
+        <script
+            src="https://www.paypal.com/sdk/js?client-id=ATLGWAOrZSvQ103eKIylfxfALipYGBTuPVsuzafbKTikCcFveVKoBEHa-zgAbMWL1u2LbFIeaSsIIkju&buyer-country=US&currency=USD"></script>
         <!-- Set up a container element for the button -->
         <div id="paypal-button-container"></div>
         <script>
