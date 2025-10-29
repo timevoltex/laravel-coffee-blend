@@ -94,7 +94,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="price">Price</label>
-                                    <input type="text" name="price" class="form-control" placeholder=""
+                                    <input type="text" name="price" readonly class="form-control" placeholder=""
                                            value="{{Session::get('price')}}">
                                 </div>
                             </div>           <div class="col-md-6">

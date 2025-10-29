@@ -90,9 +90,15 @@ class ProductsController extends Controller
     {
         $checkout = Order::create($request->all());
 
-        echo "welcome to paypal checkout";
-//        return Redirect::route('product.single', $id)->with(['success' => "product added to cart successfully"]);
+        if ($checkout) {
+            return Redirect::route('products.pay');
+        }
+    }
 
+    public function payWithPaypal()
+    {
+
+        return view('products.pay');;
 
     }
 }
