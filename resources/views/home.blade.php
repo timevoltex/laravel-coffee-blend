@@ -61,6 +61,13 @@
             </div>
         </div>
     </section>
+    <div class="container">
+        @if(Session::has('date'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('date')}}</p>
+        @elseif(Session::has('booking'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('booking')}}</p>
+        @endif
+    </div>
     <section class="ftco-intro">
         <div class="container-wrap">
             <div class="wrap d-md-flex align-items-xl-end">
@@ -77,7 +84,7 @@
                             <div class="icon"><span class="icon-my_location"></span></div>
                             <div class="text">
                                 <h3>198 West 21th Street</h3>
-                                <p>	203 Fake St. Mountain View, San Francisco, California, USA</p>
+                                <p> 203 Fake St. Mountain View, San Francisco, California, USA</p>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex ftco-animate">
@@ -89,40 +96,48 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="book p-4">
                     <h3>Book a Table</h3>
-                    <form action="#" class="appointment-form">
+                    <form action="{{route('booking.tables')}}" method="post" class="appointment-form">
+                        @csrf
                         <div class="d-md-flex">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <input type="text" name="first_name" class="form-control" placeholder="First Name">
                             </div>
                             <div class="form-group ml-md-4">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input type="text" name="last_name" class="form-control" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="d-md-flex">
                             <div class="form-group">
                                 <div class="input-wrap">
                                     <div class="icon"><span class="ion-md-calendar"></span></div>
-                                    <input type="text" class="form-control appointment_date" placeholder="Date">
+                                    <input type="text" name="date" class="form-control appointment_date"
+                                           placeholder="Date">
                                 </div>
                             </div>
                             <div class="form-group ml-md-4">
                                 <div class="input-wrap">
                                     <div class="icon"><span class="ion-ios-clock"></span></div>
-                                    <input type="text" class="form-control appointment_time" placeholder="Time">
+                                    <input type="text" name='time' class="form-control appointment_time"
+                                           placeholder="Time">
                                 </div>
                             </div>
+                            <input type="hidden" value="{{Auth::user()->id}}" name='user_id'
+                                   class="form-control" readonly
+                                   placeholder="user_id">
                             <div class="form-group ml-md-4">
-                                <input type="text" class="form-control" placeholder="Phone">
+                                <input type="text" name="phone" class="form-control" placeholder="Phone">
                             </div>
                         </div>
                         <div class="d-md-flex">
                             <div class="form-group">
-                                <textarea name="" id="" cols="30" rows="2" class="form-control" placeholder="Message"></textarea>
+                                <textarea name="message" id="" cols="30" rows="2" class="form-control"
+                                          placeholder="Message"></textarea>
                             </div>
                             <div class="form-group ml-md-4">
-                                <input type="submit" value="Appointment" class="btn btn-white py-3 px-4">
+                                <input type="submit" name="submit" value="Book" class="btn btn-white py-3 px-4">
                             </div>
                         </div>
                     </form>
@@ -140,7 +155,12 @@
                     <h2 class="mb-4">Our Story</h2>
                 </div>
                 <div>
-                    <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+                    <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
+                        would have been rewritten a thousand times and everything that was left from its origin would be
+                        the word "and" and the Little Blind Text should turn around and return to its own, safe country.
+                        But nothing the copy said could convince her and so it didn’t take long until a few insidious
+                        Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their
+                        agency, where they abused her for their.</p>
                 </div>
             </div>
         </div>
@@ -156,7 +176,8 @@
                         </div>
                         <div class="media-body">
                             <h3 class="heading">Easy to Order</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                                unorthographic.</p>
                         </div>
                     </div>
                 </div>
@@ -167,7 +188,8 @@
                         </div>
                         <div class="media-body">
                             <h3 class="heading">Fastest Delivery</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                                unorthographic.</p>
                         </div>
                     </div>
                 </div>
@@ -177,7 +199,8 @@
                             <span class="flaticon-coffee-bean"></span></div>
                         <div class="media-body">
                             <h3 class="heading">Quality Coffee</h3>
-                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+                            <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                                unorthographic.</p>
                         </div>
                     </div>
                 </div>
@@ -192,7 +215,9 @@
                     <div class="heading-section text-md-right ftco-animate">
                         <span class="subheading">Discover</span>
                         <h2 class="mb-4">Our Menu</h2>
-                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and
+                            Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the
+                            coast of the Semantics, a large language ocean.</p>
                         <p><a href="#" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Menu</a></p>
                     </div>
                 </div>
@@ -200,22 +225,26 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="menu-entry">
-                                <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-1.jpg')}});"></a>
+                                <a href="#" class="img"
+                                   style="background-image: url({{asset('assets/images/menu-1.jpg')}});"></a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="menu-entry mt-lg-4">
-                                <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-2.jpg')}});"></a>
+                                <a href="#" class="img"
+                                   style="background-image: url({{asset('assets/images/menu-2.jpg')}});"></a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="menu-entry">
-                                <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-3.jpg')}});"></a>
+                                <a href="#" class="img"
+                                   style="background-image: url({{asset('assets/images/menu-3.jpg')}});"></a>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="menu-entry mt-lg-4">
-                                <a href="#" class="img" style="background-image: url({{asset('assets/images/menu-4.jpg')}});"></a>
+                                <a href="#" class="img"
+                                   style="background-image: url({{asset('assets/images/menu-4.jpg')}});"></a>
                             </div>
                         </div>
                     </div>
@@ -224,7 +253,8 @@
         </div>
     </section>
 
-    <section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url({{asset('assets/images/bg_2.jpg')}});" data-stellar-background-ratio="0.5">
+    <section class="ftco-counter ftco-bg-dark img" id="section-counter"
+             style="background-image: url({{asset('assets/images/bg_2.jpg')}});" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -278,7 +308,8 @@
                 <div class="col-md-7 heading-section ftco-animate text-center">
                     <span class="subheading">Discover</span>
                     <h2 class="mb-4">Best Coffee Sellers</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+                        live the blind texts.</p>
                 </div>
             </div>
             <div class="row">
@@ -291,7 +322,8 @@
                                 <h3><a href="{{route('product.single', $product->id)}}">{{$product->name}}</a></h3>
                                 <p>{{$product->description}}</p>
                                 <p class="price"><span>${{$product->price}}</span></p>
-                                <p><a href="{{route('product.single', $product->id)}}" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+                                <p><a href="{{route('product.single', $product->id)}}"
+                                      class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
                             </div>
                         </div>
                     </div>
@@ -305,28 +337,32 @@
         <div class="container-wrap">
             <div class="row no-gutters">
                 <div class="col-md-3 ftco-animate">
-                    <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url({{asset('assets/images/gallery-1.jpg')}});">
+                    <a href="gallery.html" class="gallery img d-flex align-items-center"
+                       style="background-image: url({{asset('assets/images/gallery-1.jpg')}});">
                         <div class="icon mb-4 d-flex align-items-center justify-content-center">
                             <span class="icon-search"></span>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3 ftco-animate">
-                    <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url({{asset('assets/images/gallery-3.jpg')}});">
+                    <a href="gallery.html" class="gallery img d-flex align-items-center"
+                       style="background-image: url({{asset('assets/images/gallery-3.jpg')}});">
                         <div class="icon mb-4 d-flex align-items-center justify-content-center">
                             <span class="icon-search"></span>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3 ftco-animate">
-                    <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url({{asset('assets/images/gallery-3.jpg')}});">
+                    <a href="gallery.html" class="gallery img d-flex align-items-center"
+                       style="background-image: url({{asset('assets/images/gallery-3.jpg')}});">
                         <div class="icon mb-4 d-flex align-items-center justify-content-center">
                             <span class="icon-search"></span>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-3 ftco-animate">
-                    <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url({{asset('assets/images/gallery-4.jpg')}});">
+                    <a href="gallery.html" class="gallery img d-flex align-items-center"
+                       style="background-image: url({{asset('assets/images/gallery-4.jpg')}});">
                         <div class="icon mb-4 d-flex align-items-center justify-content-center">
                             <span class="icon-search"></span>
                         </div>
@@ -338,14 +374,16 @@
 
 
 
-    <section class="ftco-section img" id="ftco-testimony" style="background-image: url({{asset('assets/images/bg_1.jpg')}});"  data-stellar-background-ratio="0.5">
+    <section class="ftco-section img" id="ftco-testimony"
+             style="background-image: url({{asset('assets/images/bg_1.jpg')}});" data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-7 heading-section text-center ftco-animate">
                     <span class="subheading">Testimony</span>
                     <h2 class="mb-4">Customers Says</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+                        live the blind texts.</p>
                 </div>
             </div>
         </div>
@@ -354,65 +392,78 @@
                 <div class="col-lg align-self-sm-end ftco-animate">
                     <div class="testimony">
                         <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small.&rdquo;</p>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
+                                almost unorthographic life One day however a small.&rdquo;</p>
                         </blockquote>
                         <div class="author d-flex mt-4">
                             <div class="image mr-3 align-self-center">
                                 <img src="{{asset('assets/images/person_1.jpg')}}" alt="">
                             </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                            <div class="name align-self-center">Louise Kelly <span
+                                    class="position">Illustrator Designer</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg align-self-sm-end">
                     <div class="testimony overlay">
                         <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
+                                almost unorthographic life One day however a small line of blind text by the name of
+                                Lorem Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
                         </blockquote>
                         <div class="author d-flex mt-4">
                             <div class="image mr-3 align-self-center">
                                 <img src="{{asset('assets/images/person_2.jpg')}}" alt="">
                             </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                            <div class="name align-self-center">Louise Kelly <span
+                                    class="position">Illustrator Designer</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg align-self-sm-end ftco-animate">
                     <div class="testimony">
                         <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small  line of blind text by the name. &rdquo;</p>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
+                                almost unorthographic life One day however a small line of blind text by the name.
+                                &rdquo;</p>
                         </blockquote>
                         <div class="author d-flex mt-4">
                             <div class="image mr-3 align-self-center">
                                 <img src="{{asset('assets/images/person_3.jpg')}}" alt="">
                             </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                            <div class="name align-self-center">Louise Kelly <span
+                                    class="position">Illustrator Designer</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg align-self-sm-end">
                     <div class="testimony overlay">
                         <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however.&rdquo;</p>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
+                                almost unorthographic life One day however.&rdquo;</p>
                         </blockquote>
                         <div class="author d-flex mt-4">
                             <div class="image mr-3 align-self-center">
                                 <img src="{{asset('assets/images/person_2.jpg')}}" alt="">
                             </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                            <div class="name align-self-center">Louise Kelly <span
+                                    class="position">Illustrator Designer</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg align-self-sm-end ftco-animate">
                     <div class="testimony">
                         <blockquote>
-                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small  line of blind text by the name. &rdquo;</p>
+                            <p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an
+                                almost unorthographic life One day however a small line of blind text by the name.
+                                &rdquo;</p>
                         </blockquote>
                         <div class="author d-flex mt-4">
                             <div class="image mr-3 align-self-center">
                                 <img src="{{asset('assets/images/person_3.jpg')}}" alt="">
                             </div>
-                            <div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+                            <div class="name align-self-center">Louise Kelly <span
+                                    class="position">Illustrator Designer</span></div>
                         </div>
                     </div>
                 </div>
