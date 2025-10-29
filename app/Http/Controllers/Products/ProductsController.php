@@ -107,12 +107,28 @@ class ProductsController extends Controller {
     }
 
     public function BookTables(Request $request) {
+        Request()->validate([
+            'first_name' => 'required|max:40',
+            'last_name' => 'required|max:40',
+            'date' => 'required',
+            'time' => 'required',
+            'phone' => 'required|max:40',
+            'message' => 'required',
+        ]);
+
         if ($request->date > date('n/j/Y')) {
             $bookTables = Booking::create($request->all());
             return Redirect::route('home')->with(['booking' => "you booked a table successfully"]);
         } else {
             return Redirect::route('home')->with(['date' => "invalide date, choose a date in the future"]);
         }
+    }
+
+    public function menu() {
+        $drinks = Product::select()->where("type", "drinks")->orderBy("id", 'desc')->take(6)->get();
+        $desserts = Product::select()->where("type", "desserts")->orderBy("id", 'desc')->take(6)->get();
+
+        return view('products.menu', compact('drinks', 'desserts'));
 
     }
 }
