@@ -97,6 +97,11 @@
                                     <input type="text" name="price" class="form-control" placeholder=""
                                            value="{{Session::get('price')}}">
                                 </div>
+                            </div>           <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="user_id" class="form-control" placeholder=""
+                                           value="{{Auth::user()->id}}">
+                                </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-12">
