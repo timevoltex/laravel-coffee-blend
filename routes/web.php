@@ -36,4 +36,5 @@ Route::get('products/menu', [App\Http\Controllers\Products\ProductsController::c
 
 //users pages
 Route::get('users/orders', [App\Http\Controllers\Users\UserController::class, 'displayOrders'])->name('users.orders');
+Route::get('users/bookings', [App\Http\Controllers\Users\UserController::class, 'displayBookings'])->name('users.bookings');
 
