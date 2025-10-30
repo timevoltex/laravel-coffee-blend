@@ -48,7 +48,9 @@ Route::group(['prefix' => 'users'], function () {
 //write reivews
     Route::get('/write-review', [App\Http\Controllers\Users\UserController::class, 'writeReview'])->name('users.write_review')->middleware('auth:web');
     Route::post('/write-review', [App\Http\Controllers\Users\UserController::class, 'processWriteReview'])->name('process.write.review')->middleware('auth:web');
-
 });
 
+Route::get('admin/login', [App\Http\Controllers\Admins\AdminsController::class, 'viewLogin'])->name('view.login');
+Route::post('admin/login', [App\Http\Controllers\Admins\AdminsController::class, 'checkLogin'])->name('check.login');
+Route::get('admin/index', [App\Http\Controllers\Admins\AdminsController::class, 'index'])->name('admin.dashboard');
 
