@@ -28,13 +28,13 @@ class UserController extends Controller {
     }
 
     public function processWriteReview(Request $request) {
-        $writeReviews = review::create([
+        $writeReviews = Review::create([
             "name" => Auth::user()->name,
             "review" => $request->review,
         ]);
 
         if ($writeReviews) {
-            return Redirect::route('home')->with(['reviews' => "Review submitted successfully"]);
+            return Redirect::route('users.write_review')->with(['reviews' => "Review submitted successfully"]);
         }
 
     }

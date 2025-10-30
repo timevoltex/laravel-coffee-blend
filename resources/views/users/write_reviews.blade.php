@@ -18,6 +18,12 @@
         </div>
     </section>
 
+    <div class="container">
+        @if(Session::has('reviews'))
+            <p class="alert {{Session::get('alert-class','alert-info')}}">{{Session::get('reviews')}}</p>
+        @endif
+    </div>
+
     <section class="ftco-section">
         <div class="container">
             <div class="row">
@@ -34,12 +40,8 @@
                                               placeholder=""></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="hidden" name="user_id" class="form-control" placeholder=""
-                                           value="{{Auth::user()->id}}">
-                                </div>
-                            </div>
+
+
                             <div class="w-100"></div>
                             <div class="col-md-12">
                                 <div class="form-group mt-4">
