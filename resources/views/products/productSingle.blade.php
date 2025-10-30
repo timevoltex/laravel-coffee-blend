@@ -40,31 +40,11 @@
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <div class="form-group d-flex">
-                                {{--                                <div class="select-wrap">--}}
-                                {{--                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>--}}
-                                {{--                                    <select name="" id="" class="form-control">--}}
-                                {{--                                        <option value="">Small</option>--}}
-                                {{--                                        <option value="">Medium</option>--}}
-                                {{--                                        <option value="">Large</option>--}}
-                                {{--                                        <option value="">Extra Large</option>--}}
-                                {{--                                    </select>--}}
-                                {{--                                </div>--}}
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="input-group col-md-6 d-flex mb-3">
-                            {{--	             	<span class="input-group-btn mr-2">--}}
-                            {{--	                	<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">--}}
-                            {{--	                   <i class="icon-minus"></i>--}}
-                            {{--	                	</button>--}}
-                            {{--	            		</span>--}}
-                            {{--                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1"--}}
-                            {{--                                   min="1" max="100">--}}
-                            {{--                            <span class="input-group-btn ml-2">--}}
-                            {{--	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">--}}
-                            {{--	                     <i class="icon-plus"></i>--}}
-                            {{--	                 </button>--}}
-                            {{--	             	</span>--}}
+
                         </div>
                     </div>
                     <form method="POST" action="{{route('add.cart', $product->id)}}">
@@ -74,10 +54,15 @@
                         <input type="hidden" name="price" value="{{$product->price}}"/>
                         <input type="hidden" name="image" value="{{$product->image}}"/>
                         <input type="hidden" name="description" value="{{$product->description}}"/>
-                        @if($checkingInCart == 0)
-                            <button name="submit" type="submit" class="btn btn-primary py-3 px-5">Add to Cart</button>
-                        @else
-                            <button style="background-color:black" disabled class="text-white btn btn-warning py-3 px-5">Added to Cart</button>
+                        @if(isset(Auth::user()->id))
+                            @if($checkingInCart == 0)
+                                <button name="submit" type="submit" class="btn btn-primary py-3 px-5">Add to Cart
+                                </button>
+                            @else
+                                <button style="background-color:black" disabled
+                                        class="text-white btn btn-warning py-3 px-5">Added to Cart
+                                </button>
+                            @endif
                         @endif
                     </form>
                 </div>
@@ -111,8 +96,8 @@
                                 <p class="price"><span>${{$relatedProduct->price}}</span></p>
                                 <p>
                                     <a
-                                            href="{{route('product.single', $relatedProduct->id)}}"
-                                            class="btn btn-primary btn-outline-primary">Add to Cart
+                                        href="{{route('product.single', $relatedProduct->id)}}"
+                                        class="btn btn-primary btn-outline-primary">Add to Cart
                                     </a>
                                 </p>
                             </div>

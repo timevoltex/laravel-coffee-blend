@@ -20,12 +20,19 @@ class ProductsController extends Controller {
             ->orderBy('id', 'desc')
             ->get();
 
-        // checking for products in the cart
+        if (isset(Auth::user()->id)) {
 
-        $checkingInCart = Cart::where('pro_id', $id)
-            ->where('user_id', Auth::user()->id)->count();
+            // checking for products in the cart
 
-        return view('products.productSingle', compact('product', 'relatedProducts', 'checkingInCart'));
+            $checkingInCart = Cart::where('pro_id', $id)
+                ->where('user_id', Auth::user()->id)->count();
+            return view('products.productSingle', compact('product', 'relatedProducts', 'checkingInCart'));
+
+        } else {
+
+            return view('products.productSingle', compact('product', 'relatedProducts'));
+        }
+
     }
 
     public function addCart(Request $request, $id) {

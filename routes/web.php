@@ -16,7 +16,7 @@ Route::get('products/products-single/{id}', [App\Http\Controllers\Products\Produ
 Route::post('products/products-single/{id}', [App\Http\Controllers\Products\ProductsController::class, 'addCart'])->name('add.cart');
 
 //cart
-Route::get('products/cart', [App\Http\Controllers\Products\ProductsController::class, 'cart'])->name('cart');
+Route::get('products/cart', [App\Http\Controllers\Products\ProductsController::class, 'cart'])->name('cart')->middleware('auth:web');
 Route::get('products/cart-delete/{id}', [App\Http\Controllers\Products\ProductsController::class, 'deleteProductCart'])->name('cart.product.delete');
 
 //checkout
@@ -37,10 +37,10 @@ Route::get('products/menu', [App\Http\Controllers\Products\ProductsController::c
 
 
 //users pages
-Route::get('users/orders', [App\Http\Controllers\Users\UserController::class, 'displayOrders'])->name('users.orders');
-Route::get('users/bookings', [App\Http\Controllers\Users\UserController::class, 'displayBookings'])->name('users.bookings');
+Route::get('users/orders', [App\Http\Controllers\Users\UserController::class, 'displayOrders'])->name('users.orders')->middleware('auth:web');
+Route::get('users/bookings', [App\Http\Controllers\Users\UserController::class, 'displayBookings'])->name('users.bookings')->middleware('auth:web');
 
 //write reivews
-Route::get('users/write-review', [App\Http\Controllers\Users\UserController::class, 'writeReview'])->name('users.write_review');
-Route::post('users/write-review', [App\Http\Controllers\Users\UserController::class, 'processWriteReview'])->name('process.write.review');
+Route::get('users/write-review', [App\Http\Controllers\Users\UserController::class, 'writeReview'])->name('users.write_review')->middleware('auth:web');
+Route::post('users/write-review', [App\Http\Controllers\Users\UserController::class, 'processWriteReview'])->name('process.write.review')->middleware('auth:web');
 
