@@ -20,7 +20,7 @@
     <div class="container">
         <!-- Replace "test" with your own sandbox Business account app client ID -->
         <script
-            src="https://www.paypal.com/sdk/js?client-id=ATLGWAOrZSvQ103eKIylfxfALipYGBTuPVsuzafbKTikCcFveVKoBEHa-zgAbMWL1u2LbFIeaSsIIkju&buyer-country=US&currency=USD"></script>
+            src="https://www.paypal.com/sdk/js?client-id={{env('PAYPAL_CLIENT_ID')}}&buyer-country=US&currency=USD"></script>
         <!-- Set up a container element for the button -->
         <div id="paypal-button-container"></div>
         <script>

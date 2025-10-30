@@ -1,61 +1,354 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Coffee Blend - Coffee Shop Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive coffee shop management system built with Laravel 12, featuring a modern frontend with Tailwind CSS and a complete e-commerce solution for coffee shop operations.
 
-## About Laravel
+This project is based on the Udemy course: [PHP & Laravel - Build Coffee Shop Management System](https://www.udemy.com/course/php-laravel-2023-build-coffee-shop-management-system/)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Customer Features
+- **User Authentication**: Secure registration and login system
+- **Product Catalog**: Browse coffee products with detailed information
+- **Shopping Cart**: Add products to cart and manage quantities
+- **Checkout & Payment**: Complete checkout process with PayPal integration
+- **Order Tracking**: View order history and status
+- **Table Reservations**: Book tables for dining
+- **Product Reviews**: Write and submit reviews for products
+- **Menu**: View the complete coffee shop menu
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin Features
+- **Admin Dashboard**: Comprehensive statistics and management overview
+- **Admin Management**: Create and manage admin users
+- **Secure Admin Panel**: Protected with authentication middleware
+- **Order Management**: View and manage customer orders
+- **Booking Management**: Handle table reservations
+- **Review Moderation**: Monitor customer reviews
 
-## Learning Laravel
+### Static Pages
+- Home
+- Services
+- About
+- Contact
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tech Stack
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Backend
+- **PHP**: 8.2+
+- **Laravel Framework**: 12.0
+- **Database**: SQLite (configurable to MySQL/PostgreSQL)
+- **Authentication**: Laravel UI
+- **Queue System**: Database driver
+- **Cache**: Database driver
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Frontend
+- **CSS Framework**: Tailwind CSS 4.0 + Bootstrap 5
+- **JavaScript**: Vite + React 19.2.0
+- **Asset Bundling**: Vite 7.0
+- **UI Components**: Popper.js
 
-## Laravel Sponsors
+### Development Tools
+- **Laravel Pint**: Code style formatting
+- **Laravel Pail**: Real-time log viewer
+- **PHPUnit**: Testing framework
+- **Concurrently**: Run multiple dev servers
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Prerequisites
 
-### Premium Partners
+- PHP 8.2 or higher
+- Composer
+- Node.js and npm
+- XAMPP (or similar PHP development environment)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Installation
+
+### Quick Setup (Recommended)
+
+Run the automated setup command:
+
+```bash
+composer setup
+```
+
+This command will:
+1. Install PHP dependencies
+2. Create `.env` file from `.env.example`
+3. Generate application key
+4. Run database migrations
+5. Install Node.js dependencies
+6. Build frontend assets
+
+### Manual Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd coffeeblend
+   ```
+
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
+
+3. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+5. **Database setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed  # Optional: seed with sample data
+   ```
+
+6. **Build assets**
+   ```bash
+   npm run build
+   ```
+
+## Running the Application
+
+### Development Mode (All Services)
+
+Run all development services concurrently:
+
+```bash
+composer dev
+```
+
+This starts:
+- Laravel development server at `http://localhost:8000`
+- Queue worker for background jobs
+- Real-time log viewer (Pail)
+- Vite dev server with hot module reload
+
+### Individual Services
+
+Run services separately if needed:
+
+```bash
+# Laravel development server
+php artisan serve
+
+# Vite development server (hot reload)
+npm run dev
+
+# Queue worker
+php artisan queue:listen --tries=1
+
+# Real-time logs
+php artisan pail --timeout=0
+```
+
+## Database Structure
+
+The application uses the following database tables:
+
+- `users` - Customer accounts
+- `admins` - Administrator accounts
+- `orders` - Customer orders
+- `bookings` - Table reservations
+- `reviews` - Product reviews
+- `cache` - Application cache
+- `jobs` - Background job queue
+
+## Routes
+
+### Public Routes
+- `/` - Homepage
+- `/about` - About page
+- `/services` - Services page
+- `/contact` - Contact page
+- `/menu` - Menu page
+- `/products/products-single/{id}` - Product details
+
+### User Routes (Authentication Required)
+- `/cart` - Shopping cart
+- `/checkout` - Checkout process
+- `/users/orders` - Order history
+- `/users/bookings` - Booking history
+- `/users/write-review` - Write product reviews
+
+### Admin Routes (Admin Authentication Required)
+- `/admin/login` - Admin login
+- `/admin/index` - Admin dashboard
+- `/all-admins` - Manage administrators
+- `/create-admins` - Create new admin users
+
+## Testing
+
+Run the test suite:
+
+```bash
+composer test
+```
+
+Or run PHPUnit directly:
+
+```bash
+php artisan test
+php artisan test --filter=ExampleTest
+```
+
+Tests are located in:
+- `tests/Unit/` - Unit tests
+- `tests/Feature/` - Feature tests
+
+## Code Style
+
+Format code using Laravel Pint:
+
+```bash
+vendor/bin/pint
+```
+
+## Database Commands
+
+```bash
+# Run migrations
+php artisan migrate
+
+# Fresh migration (drops all tables)
+php artisan migrate:fresh
+
+# Fresh migration with seeders
+php artisan migrate:fresh --seed
+
+# Run seeders only
+php artisan db:seed
+```
+
+## Asset Management
+
+```bash
+# Development build with hot reload
+npm run dev
+
+# Production build (optimized)
+npm run build
+```
+
+## Project Structure
+
+```
+coffeeblend/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admins/          # Admin controllers
+│   │   │   ├── Auth/            # Authentication controllers
+│   │   │   ├── Products/        # Product controllers
+│   │   │   └── Users/           # User controllers
+│   │   └── Middleware/          # Custom middleware
+│   └── Models/                  # Eloquent models
+├── database/
+│   ├── migrations/              # Database migrations
+│   ├── seeders/                 # Database seeders
+│   └── factories/               # Model factories
+├── resources/
+│   ├── css/                     # Stylesheets
+│   ├── js/                      # JavaScript files
+│   └── views/                   # Blade templates
+│       ├── admins/              # Admin views
+│       ├── auth/                # Authentication views
+│       ├── pages/               # Static pages
+│       ├── products/            # Product views
+│       └── users/               # User views
+├── routes/
+│   ├── web.php                  # Web routes
+│   └── console.php              # Console commands
+└── tests/
+    ├── Feature/                 # Feature tests
+    └── Unit/                    # Unit tests
+```
+
+## Configuration
+
+Key environment variables in `.env`:
+
+```env
+APP_NAME="Coffee Blend"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+# For MySQL, use:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=coffeeblend
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+QUEUE_CONNECTION=database
+CACHE_STORE=database
+SESSION_DRIVER=database
+
+# PayPal configuration
+PAYPAL_CLIENT_ID=your_paypal_client_id
+PAYPAL_SECRET=your_paypal_secret
+PAYPAL_MODE=sandbox
+```
+
+## Security
+
+- Admin routes are protected with `auth:admin` middleware
+- User routes are protected with `auth:web` middleware
+- Price verification middleware prevents checkout manipulation
+- Authentication checks prevent unauthorized access
+
+## Troubleshooting
+
+### Database Issues
+```bash
+# Reset database
+php artisan migrate:fresh
+
+# Clear cache
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+```
+
+### Asset Issues
+```bash
+# Rebuild assets
+npm run build
+
+# Clear and rebuild
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+```
+
+### Permission Issues (Linux/Mac)
+```bash
+chmod -R 775 storage bootstrap/cache
+```
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+This is a learning project based on a Udemy course. Feel free to fork and experiment with your own modifications.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Support
+
+For course-specific questions, please refer to the [Udemy course](https://www.udemy.com/course/php-laravel-2023-build-coffee-shop-management-system/).
+
+For Laravel framework documentation, visit [Laravel Documentation](https://laravel.com/docs).
+
+## Acknowledgments
+
+- Laravel Framework
+- Udemy Course Instructor
+- Coffee shop community
