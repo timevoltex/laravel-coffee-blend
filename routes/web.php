@@ -59,6 +59,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('index', [App\Http\Controllers\Admins\AdminsController::class, 'index'])->name('admin.dashboard');
 });
 
+// admin section
 Route::get('all-admins', [App\Http\Controllers\Admins\AdminsController::class, 'displayAllAdmins'])->name('all.admins');
 Route::get('create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'createAdmins'])->name('create.admins');
 Route::post('create-admins', [App\Http\Controllers\Admins\AdminsController::class, 'storeAdmins'])->name('store.admins');
+
+//order section
+Route::get('all-orders', [App\Http\Controllers\Admins\AdminsController::class, 'displayAllOrders'])->name('all.orders');
+Route::delete('delete-order', [App\Http\Controllers\Admins\AdminsController::class, 'deleteOrder'])->name('delete-orders');

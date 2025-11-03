@@ -46,6 +46,11 @@ class AdminsController extends Controller {
     }
 
     public function storeAdmins(Request $request) {
+        Request()->validate([
+            "name" => "required|max:40",
+            "email" => "required|email|max:40|unique:admins",
+            "password" => "required|max:40",
+        ]);
 
         $storeAdmins = Admin::Create([
             "name" => $request->name,
@@ -58,4 +63,11 @@ class AdminsController extends Controller {
         }
 
     }
+
+    public function displayAllOrders() {
+        $allOrders = Order::select()->orderBy('id', 'desc')->get();
+
+        return view('admins.allOrders', compact('allOrders'));
+    }
+
 }
