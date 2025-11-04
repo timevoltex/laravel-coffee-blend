@@ -138,4 +138,40 @@ class AdminsController extends Controller {
 
         return Redirect::route('all.products')->with(['error' => "Product not deleted successfully"]);
     }
+
+    public function displayAllBookings() {
+        $bookings = Booking::select()->orderBy('id', 'desc')->get();
+        return view('admins.all_bookings', compact('bookings'));
+
+    }
+
+    public function editBooking($id) {
+        $booking = Booking::find($id);
+
+        if ($booking) {
+            return view('admins.edit_booking', compact('booking'));
+        }
+
+        return Redirect::route('all.bookings')->with(['error' => "Booking not found"]);
+    }
+
+    public function updateBooking(Request $request, $id) {
+        $booking = Booking::find($id);
+        if ($booking) {
+            $booking->update($request->all());
+            return Redirect::route('all.bookings')->with(['updated' => "Booking updated successfully"]);
+        }
+        return Redirect::route('all.bookings')->with(['error' => "Booking not updated successfully"]);
+    }
+
+    public function deleteBooking($id) {
+        $booking = Booking::find($id);
+
+        if ($booking) {
+            $booking->delete();
+            return Redirect::route('all.bookings')->with(['deleted' => "Booking deleted successfully"]);
+        }
+
+        return Redirect::route('all.bookings')->with(['error' => "Booking not deleted successfully"]);
+    }
 }

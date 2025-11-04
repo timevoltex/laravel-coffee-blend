@@ -75,3 +75,9 @@ Route::get('all-products', [App\Http\Controllers\Admins\AdminsController::class,
 Route::get('create-product', [App\Http\Controllers\Admins\AdminsController::class, 'createProduct'])->name('create.product');
 Route::post('create-product', [App\Http\Controllers\Admins\AdminsController::class, 'storeProduct'])->name('store.product');
 Route::get('delete-product/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteProduct'])->name('delete.product');
+
+// booking section
+Route::get('all-bookings', [App\Http\Controllers\Admins\AdminsController::class, 'displayAllBookings'])->name('all.bookings');
+Route::get('delete-booking/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteBooking'])->name('delete.booking');
+Route::get('edit-booking/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editBooking'])->name('edit.booking');
+Route::post('update-booking/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateBooking'])->name('update.booking');
