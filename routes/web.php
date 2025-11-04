@@ -66,4 +66,6 @@ Route::post('create-admins', [App\Http\Controllers\Admins\AdminsController::clas
 
 //order section
 Route::get('all-orders', [App\Http\Controllers\Admins\AdminsController::class, 'displayAllOrders'])->name('all.orders');
-Route::delete('delete-order', [App\Http\Controllers\Admins\AdminsController::class, 'deleteOrder'])->name('delete-orders');
+Route::get('edit-order/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editOrder'])->name('edit.order');
+Route::get('delete-order/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteOrder'])->name('delete.order');
+Route::post('edit-order/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateOrder'])->name('update.order');

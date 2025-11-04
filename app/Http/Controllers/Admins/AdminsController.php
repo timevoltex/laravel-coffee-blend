@@ -70,4 +70,26 @@ class AdminsController extends Controller {
         return view('admins.allOrders', compact('allOrders'));
     }
 
+    public function editOrder($id) {
+        $order = Order::find($id);
+        return view('admins.editOrder', compact('order'));
+    }
+
+    public function updateOrder(Request $request, $id) {
+        $order = Order::find($id);
+
+        if ($order) {
+            $order->update($request->all());
+            return Redirect::route('all.orders')->with(['updated' => "Order updated successfully"]);
+        }
+    }
+
+    public function deleteOrder($id){
+        $order = Order::find($id);
+        if($order){
+            $order->delete();
+            return Redirect::route('all.orders')->with(['deleted' => "Order deleted successfully"]);
+        }
+    }
+
 }

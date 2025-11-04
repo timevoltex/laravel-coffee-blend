@@ -5,6 +5,12 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+                    @if(Session::has('updated'))
+                        <p class="alert {{Session::get('alert-class', 'alert-info')}}">{{Session::get('updated')}}</p>
+                    @endif
+                    @if(Session::has('deleted'))
+                        <p class="alert {{Session::get('alert-class', 'alert-info')}}">{{Session::get('deleted')}}</p>
+                    @endif
                     <h5 class="card-title mb-4 d-inline">Orders</h5>
 
                     <table class="table">
@@ -36,8 +42,10 @@
                                 <td>${{$order->price}}</td>
 
                                 <td>{{$order->status}}</td>
-                                <td><a href="delete-orders.html" class="btn btn-warning  text-center ">change status</a></td>
-                                <td><a href="delete-orders.html" class="btn btn-danger  text-center ">delete</a></td>
+                                <td><a href="{{route('edit.order', $order->id)}}" class="btn btn-warning  text-center ">change
+                                        status</a></td>
+                                <td><a href="{{route('delete.order', $order->id)}}"
+                                       class="btn btn-danger  text-center ">delete</a></td>
                             </tr>
 
                         @endforeach
