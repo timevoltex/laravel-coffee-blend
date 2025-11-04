@@ -8,6 +8,7 @@ use App\Models\Product\Booking;
 use App\Models\Product\Order;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
@@ -62,6 +63,7 @@ class AdminsController extends Controller {
             return Redirect::route('all.admins')->with(['success' => "Admin created successfully"]);
         }
 
+        return Redirect::route('all.admins')->with(['error' => "Admin not created successfully"]);
     }
 
     public function displayAllOrders() {
@@ -82,14 +84,58 @@ class AdminsController extends Controller {
             $order->update($request->all());
             return Redirect::route('all.orders')->with(['updated' => "Order updated successfully"]);
         }
+        return Redirect::route('all.orders')->with(['error' => "Order not updated successfully"]);
     }
 
-    public function deleteOrder($id){
+    public function deleteOrder($id) {
         $order = Order::find($id);
-        if($order){
+
+        if ($order) {
             $order->delete();
             return Redirect::route('all.orders')->with(['deleted' => "Order deleted successfully"]);
         }
+
+        return Redirect::route('all.orders')->with(['error' => "Order not deleted successfully"]);
     }
 
+    public function displayAllProducts() {
+        $products = Product::select()->orderBy('id', 'desc')->get();
+        return view('admins.allProducts', compact('products'));
+    }
+
+    public function createProduct() {
+        return view('admins.create_product');
+    }
+
+    public function storeProduct(Request $request) {
+        Request()->validate([]);
+
+        $destinationPath = "assets/images";
+        $myimage = $request->image->getClientOriginalName();
+        $request->image->move(public_path($destinationPath), $myimage);
+
+        Product::Create([
+            "name" => $request->name,
+            "price" => $request->price,
+            "image" => $myimage,
+            "description" => $request->description,
+            "type" => $request->type,
+        ]);
+
+        return Redirect::route('all.products')->with(['created' => "Product created successfully"]);
+    }
+
+    public function deleteProduct($id) {
+        $product = Product::find($id);
+
+        if ($product) {
+            if (File::exists(public_path('assets/images/' . $product->image))) {
+                File::delete(public_path('assets/images/' . $product->image));
+            }
+            $product->delete();
+            return Redirect::route('all.products')->with(['deleted' => "Product deleted successfully"]);
+        }
+
+        return Redirect::route('all.products')->with(['error' => "Product not deleted successfully"]);
+    }
 }

@@ -69,3 +69,9 @@ Route::get('all-orders', [App\Http\Controllers\Admins\AdminsController::class, '
 Route::get('edit-order/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'editOrder'])->name('edit.order');
 Route::get('delete-order/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteOrder'])->name('delete.order');
 Route::post('edit-order/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'updateOrder'])->name('update.order');
+
+// product section
+Route::get('all-products', [App\Http\Controllers\Admins\AdminsController::class, 'displayAllProducts'])->name('all.products');
+Route::get('create-product', [App\Http\Controllers\Admins\AdminsController::class, 'createProduct'])->name('create.product');
+Route::post('create-product', [App\Http\Controllers\Admins\AdminsController::class, 'storeProduct'])->name('store.product');
+Route::get('delete-product/{id}', [App\Http\Controllers\Admins\AdminsController::class, 'deleteProduct'])->name('delete.product');
